@@ -60,7 +60,7 @@ module.exports = {
 
         await connection('incidents').where('id', id).delete()
 
-        console.log(`> Deleted incident '${title}' with id ${id}`)
+        console.log(`> Deleted incident with id ${id}`)
 
         // 204 No Content
         return res.status(204).send()
