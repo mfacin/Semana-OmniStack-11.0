@@ -7,8 +7,6 @@ module.exports = {
         // pega a primeira posição do array
         const [count] = await connection('incidents').count()
 
-        console.log(count)
-
         const incidents = await connection('incidents')
             .join('ongs', 'ongs.id', '=', 'incidents.ong_id')
             .limit(5)
@@ -34,13 +32,6 @@ module.exports = {
             ong_id
         })
 
-        const ong = await connection('ongs')
-            .where('id', ong_id)
-            .select('name')
-            .first()
-
-        console.log(`> Created incident '${title}' with id ${id} by ONG '${ong.name}'`)
-
         return res.json({ id })
     },
 
@@ -59,8 +50,6 @@ module.exports = {
         }
 
         await connection('incidents').where('id', id).delete()
-
-        console.log(`> Deleted incident with id ${id}`)
 
         // 204 No Content
         return res.status(204).send()
